@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Animations } from 'app/shared/utils/animations';
 import { AlertComponent } from 'app/shared/ui/alert/alert.component';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { environment } from 'environments/environment';
 import { AuthCardComponent } from '../../ui/auth-card/auth-card.component';
 import { RouterLink } from '@angular/router';
@@ -30,7 +30,6 @@ import { AuthService } from '../../data-access/auth.service';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    NgOptimizedImage,
     CommonModule,
     AuthCardComponent
   ]

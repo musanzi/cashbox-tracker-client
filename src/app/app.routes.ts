@@ -6,6 +6,7 @@ import { authGuard } from './shared/guards/auth.guard';
 
 export const appRoutes: Route[] = [
   { path: 'me', canActivate: [authGuard], loadChildren: () => profileRoutes },
+  { path: '', canActivate: [authGuard], loadChildren: () => profileRoutes },
   { path: '', canActivate: [noAuthGuard], loadChildren: () => auhtRoutes }
   // { path: '**', loadChildren: () => landingRoutes }
 ];

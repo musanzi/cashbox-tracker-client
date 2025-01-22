@@ -1,9 +1,7 @@
-<app-auth-card
-  title="Se connecter"
-  description="Connectez-vous et accéder à votre compte et continuer à explorer notre plateforme.">
+<app-auth-card title="Se connecter">
   @let result = result$ | async;
   @if (result?.error) {
-    <app-alert class="mt-6 w-full" type="error" [showIcon]="true" [@shake]="true">
+    <app-alert class="w-full" type="error" [showIcon]="true" [@shake]="true">
       {{ result.error }}
     </app-alert>
   }
@@ -56,21 +54,6 @@
           <mat-progress-spinner class="text-white" [diameter]="24" [mode]="'indeterminate'" />
         }
       </button>
-      <div class="mt-4 flex items-center">
-        <div class="mt-px flex-auto border-t"></div>
-        <div class="text-gray-700 mx-2">Ou continuer avec</div>
-        <div class="mt-px flex-auto border-t"></div>
-      </div>
-      <div class="mt-4 flex items-center space-x-4">
-        <button class="flex-auto" type="button" mat-stroked-button (click)="signinWithGoogle()">
-          <div class="flex items-center gap-1.5">
-            <div class="relative h-5 w-5">
-              <img ngSrc="/images/logo/google.svg" alt="Google" fill />
-            </div>
-            Google
-          </div>
-        </button>
-      </div>
     </form>
   </div>
 </app-auth-card>

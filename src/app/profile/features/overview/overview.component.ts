@@ -12,7 +12,6 @@ import { ProfileService } from '../../data-access/profile.service';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UserVenturesComponent } from '../ventures/ventures.component';
 import { tabs } from '../../utils/data/tabs';
 
 @Component({
@@ -23,7 +22,6 @@ import { tabs } from '../../utils/data/tabs';
     CommonModule,
     ApiImgPipe,
     NgOptimizedImage,
-    UserVenturesComponent,
     UpdateInfoComponent,
     UpdatePasswordComponent,
     MatProgressSpinnerModule,

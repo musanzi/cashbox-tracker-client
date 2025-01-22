@@ -56,9 +56,6 @@
       }
     </div>
     <div class="w-full min-h-[60vh]">
-      @if (!activeTab()) {
-        <app-user-ventures />
-      }
       @if (activeTab() === 'my-informations') {
         <app-update-info [user]="user" />
       }
