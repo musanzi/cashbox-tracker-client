@@ -33,8 +33,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore({
       auth: authReducers
-    }),
-    provideHttpClient(),
-    provideHttpClient()
+    })
   ]
 };

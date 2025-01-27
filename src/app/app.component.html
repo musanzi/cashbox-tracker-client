@@ -1,3 +1,7 @@
-<app-loading-bar />
-<!-- <app-topbar /> -->
-<router-outlet />
+@defer (on viewport) {
+  <app-loading-bar />
+  <app-menu />
+  <router-outlet />
+} @placeholder {
+  <app-loader />
+}

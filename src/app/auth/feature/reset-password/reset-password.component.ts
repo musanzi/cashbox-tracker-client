@@ -11,7 +11,6 @@ import { AlertComponent } from 'app/shared/ui/alert/alert.component';
 import { CommonModule } from '@angular/common';
 import { IUser } from 'app/shared/utils/types/models.type';
 import { AuthCardComponent } from '../../ui/auth-card/auth-card.component';
-import { MenuComponent } from 'app/shared/ui/menu/menu.component';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from 'app/shared/services/api/types/api-response.type';
 import { AuthService } from '../../data-access/auth.service';
@@ -30,8 +29,7 @@ import { AuthService } from '../../data-access/auth.service';
     MatIconModule,
     MatProgressSpinnerModule,
     CommonModule,
-    AuthCardComponent,
-    MenuComponent
+    AuthCardComponent
   ]
 })
 export class AuthResetPasswordComponent {

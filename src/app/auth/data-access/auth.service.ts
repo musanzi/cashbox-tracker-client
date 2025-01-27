@@ -22,7 +22,7 @@ export class AuthService {
     const onSuccess = (user: IUser) => {
       this.#toast.success('Bienvenue ' + user.name);
       this.#store.dispatch(authActions.signIn({ user }));
-      this.#router.navigate(['/me']);
+      this.#router.navigate(['/']);
     };
     return this.#apiService.post('auth/sign-in', payload, onSuccess);
   }

@@ -8,11 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../auth/data-access/auth.service';
 import { IAPIResponse } from '../../services/api/types/api-response.type';
+import { links } from '../../utils/data/links';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-topbar',
-  host: { '(document:click)': 'onClickOutside($event)' },
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  selector: 'app-menu',
+  // host: { '(document:click)': 'onClickOutside($event)' },
+  imports: [CommonModule, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './menu.component.html'
 })
 export class MenuComponent implements OnInit {
@@ -22,6 +24,7 @@ export class MenuComponent implements OnInit {
   logout$: Observable<IAPIResponse<void>>;
   #store = inject(Store);
   #authService = inject(AuthService);
+  links = links;
 
   ngOnInit(): void {
     this.user$ = this.#store.pipe(select(selectUser));

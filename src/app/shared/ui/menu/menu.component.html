@@ -1,23 +1,36 @@
-<header class="navbar fixed w-full top-0 py-3 bg-white shadow-sm z-20 font-satoshi">
+<header>
   <!-- @let user = user$ | async; -->
-  <!-- Mobile Nav -->
-  <nav class="flex items-center justify-between lg:hidden">
+  <nav
+    class="flex items-center justify-between px-8 lg:px-20 navbar py-3 fixed w-full top-0 bg-white shadow-sm z-20 font-satoshi">
     <h1 class="font-bold text-lg">MTG</h1>
 
-    <div>
+    <!-- Mobile Nav -->
+    <div class="block lg:hidden">
       <button (click)="isOpen() ? closeMenu() : openMenu()">
         <mat-icon [svgIcon]="isOpen() ? 'mat_outline:close' : 'mat_outline:menu'" class="icon-size-5 text-gray-700" />
       </button>
-
       <div
-        class="fixed top-10 left-0 right-10 bottom-0 bg-white backdrop-blur-lg transition-transform duration-300 {{
+        class="fixed top-10 left-0 right-10 bottom-0 bg-white backdrop-blur-lg px-10 py-20 transition-transform duration-300 {{
           isOpen() ? 'translate-x-0' : '-translate-x-full'
         }}">
-        <!-- Links -->
+        @for (link of links; track $index) {
+          <a [routerLink]="link.path" class="flex items-center gap-3 mb-4">
+            <span class="flex flex-col items-center justify-center bg-primary-700 rounded-full p-2">
+              <mat-icon [svgIcon]="link.icon" class="icon-size-4 text-white" />
+            </span>
+            {{ link.name }}
+          </a>
+        }
       </div>
     </div>
-  </nav>
 
-  <!-- Mobile Nav -->
-  <nav class=""></nav>
+    <!-- Desktop Nav -->
+    <div class="hidden lg:flex items-center gap-5">
+      @for (link of links; track $index) {
+        <a [routerLink]="link.path" class="inline-block font-medium">
+          {{ link.name }}
+        </a>
+      }
+    </div>
+  </nav>
 </header>

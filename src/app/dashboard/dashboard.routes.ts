@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
-export const profileRoutes: Routes = [
+export const dashboardRoutes: Routes = [
   {
     path: '',
-    title: 'Profile',
+    title: 'Dashboard',
     loadComponent: () => import('./features/overview/overview.component').then((c) => c.DashboardOverviewComponent)
   }
 ];

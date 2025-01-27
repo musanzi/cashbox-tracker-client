@@ -12,7 +12,6 @@ import { ProfileService } from '../../data-access/profile.service';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { tabs } from '../../utils/data/tabs';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +36,6 @@ export class OverviewComponent {
   activeTab = signal<string | null>(null);
   user$: Observable<IUser | null>;
   update$: Observable<IAPIResponse<IUser>>;
-  tabs = tabs;
 
   constructor() {
     this.user$ = this.#store.pipe(select(selectUser));

@@ -1,9 +1,9 @@
-// import { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
-// export const profileRoutes: Routes = [
-//   {
-//     path: '',
-//     title: 'Profile',
-//     // loadComponent: () => import('./features/overview/overview.component').then((c) => c.DashboardOverviewComponent)
-//   }
-// ];
+export const cashboxesRoutes: Routes = [
+  {
+    path: '',
+    title: 'Caisses',
+    loadComponent: () => import('./features/list/cashboxes.component').then((c) => c.CashboxesComponent)
+  }
+];
