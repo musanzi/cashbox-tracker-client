@@ -1,0 +1,52 @@
+<div class="">
+  @let transactions = transactions$ | async;
+  @if (transactions?.data) {
+    <h3 class="text-lg font-semibold text-slate-800">Les transactions</h3>
+    <p class="text-slate-500 mb-8">Voici une liste des transactions effectuées</p>
+    <div
+      class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+      <table class="w-full text-left table-auto min-w-max">
+        <thead>
+          <tr>
+            <th class="p-4 border-b border-slate-300 bg-slate-50">
+              <p class="block text-sm font-normal leading-none text-slate-500">Somme $</p>
+            </th>
+            <th class="p-4 border-b border-slate-300 bg-slate-50">
+              <p class="block text-sm font-normal leading-none text-slate-500">Type</p>
+            </th>
+            <th class="p-4 border-b border-slate-300 bg-slate-50">
+              <p class="block text-sm font-normal leading-none text-slate-500">Venu de</p>
+            </th>
+            <th class="p-4 border-b border-slate-300 bg-slate-50">
+              <p class="block text-sm font-normal leading-none text-slate-500">Vers</p>
+            </th>
+            <th class="p-4 border-b border-slate-300 bg-slate-50">
+              <p class="block text-sm font-normal leading-none text-slate-500">Fait le</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (transaction of transactions.data; track transaction.id) {
+            <tr class="hover:bg-slate-50">
+              <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800">{{ transaction.amount }}</p>
+              </td>
+              <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800 capitalize">{{ transaction.type }}</p>
+              </td>
+              <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800">{{ transaction.from.name }}</p>
+              </td>
+              <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800">{{ transaction.to.name }}</p>
+              </td>
+              <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800">{{ transaction.created_at | date: 'longDate' }}</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
