@@ -1,6 +1,6 @@
 <div class="">
   @let transactions = transactions$ | async;
-  @if (transactions?.data[1] > 0) {
+  @if (transactions?.data?.[1] > 0 && !transactions.isLoading) {
     <h3 class="text-lg font-semibold text-slate-800">Les transactions ({{ transactions.data[1] }})</h3>
     <p class="text-slate-500 mb-8">Voici une liste des transactions effectuées</p>
     <div
@@ -56,7 +56,8 @@
         </pagination-controls>
       </div>
     </div>
-  } @else {
+  }
+  @if (transactions.error && transactions?.data?.[1] === 0) {
     <h3 class="text-lg font-semibold text-slate-800">Il semblerait qu'il n'y ait aucune transaction !</h3>
     <p class="text-slate-500 mb-8">Veuillez reactualisez la page ou changer de filtre.</p>
   }
