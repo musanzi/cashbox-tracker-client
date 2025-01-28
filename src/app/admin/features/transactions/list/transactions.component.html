@@ -1,7 +1,7 @@
 <div class="">
   @let transactions = transactions$ | async;
-  @if (transactions?.data) {
-    <h3 class="text-lg font-semibold text-slate-800">Les transactions</h3>
+  @if (transactions?.data[1] > 0) {
+    <h3 class="text-lg font-semibold text-slate-800">Les transactions ({{ transactions.data[1] }})</h3>
     <p class="text-slate-500 mb-8">Voici une liste des transactions effectuées</p>
     <div
       class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
@@ -26,7 +26,11 @@
           </tr>
         </thead>
         <tbody>
-          @for (transaction of transactions.data; track transaction.id) {
+          @for (
+            transaction of transactions.data[0]
+              | paginate: { itemsPerPage: 12, currentPage: queryParams().page, totalItems: transactions.data[1] };
+            track transaction.id
+          ) {
             <tr class="hover:bg-slate-50">
               <td class="p-4 border-b border-slate-200">
                 <p class="block text-sm text-slate-800">{{ transaction.amount }}</p>
@@ -47,6 +51,13 @@
           }
         </tbody>
       </table>
+      <div class="flex justify-center mt-8">
+        <pagination-controls nextLabel="" previousLabel="" [maxSize]="5" (pageChange)="onPageChange($event)" class="pg">
+        </pagination-controls>
+      </div>
     </div>
+  } @else {
+    <h3 class="text-lg font-semibold text-slate-800">Il semblerait qu'il n'y ait aucune transaction !</h3>
+    <p class="text-slate-500 mb-8">Veuillez reactualisez la page ou changer de filtre.</p>
   }
 </div>
