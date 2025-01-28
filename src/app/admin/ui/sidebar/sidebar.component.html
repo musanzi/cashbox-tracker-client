@@ -1,13 +1,13 @@
-<div class="flex flex-col justify-between gap-10 fixed top-0 pt-24 left-0 px-16 bg-gray-100/60 min-h-screen">
-  <div class="">
-    <h2 class="mb-10 font-medium">Menu</h2>
+<div class="flex flex-col justify-between gap-10 fixed top-0 pt-24 left-0 px-16 bg-slate-50 min-h-screen">
+  <div>
+    <h2 class="mb-8 ml-4 text-lg font-medium">Menu</h2>
     <div class="flex flex-col gap-3">
       @for (link of adminLinks; track $index) {
         <a
           [routerLink]="link.path"
-          class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-primary-900/20 hover:text-primary-900 transition-colors duration-300"
+          class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-primary-400/20 hover:text-primary-900 transition-colors duration-300"
           [routerLinkActiveOptions]="{ exact: link.exactUrl }"
-          routerLinkActive="bg-primary-900/20 text-primary-900 shadow-sm">
+          routerLinkActive="bg-primary-400/20 text-primary-900 shadow-sm">
           <mat-icon [svgIcon]="link.icon" class="icon-size-4" />
           <p class="font-normal">{{ link.name }}</p>
         </a>
