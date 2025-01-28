@@ -8,7 +8,7 @@ interface IBase {
 export interface ICashbox extends IBase {
   name: string;
   balance: number;
-  user: IUser;
+  manager: IUser;
 }
 
 export interface IUser extends IBase {
