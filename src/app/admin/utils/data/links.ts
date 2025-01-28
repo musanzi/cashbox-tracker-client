@@ -8,12 +8,6 @@ export const adminLinks: ILink[] = [
     exactUrl: true
   },
   {
-    name: 'Utilisateurs',
-    path: '/users',
-    icon: 'mat_outline:people',
-    exactUrl: false
-  },
-  {
     name: 'Caisses',
     path: '/cashboxes',
     icon: 'mat_outline:savings',
@@ -23,6 +17,12 @@ export const adminLinks: ILink[] = [
     name: 'Transactions',
     path: '/transactions',
     icon: 'mat_outline:swap_horiz',
+    exactUrl: false
+  },
+  {
+    name: 'Utilisateurs',
+    path: '/users',
+    icon: 'mat_outline:people',
     exactUrl: false
   }
 ];
