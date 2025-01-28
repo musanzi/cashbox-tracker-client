@@ -51,12 +51,14 @@
           }
         </tbody>
       </table>
+
       <div class="flex justify-center mt-8">
         <pagination-controls nextLabel="" previousLabel="" [maxSize]="5" (pageChange)="onPageChange($event)" class="pg">
         </pagination-controls>
       </div>
     </div>
   }
+
   @if (transactions.error && transactions?.data?.[1] === 0) {
     <h3 class="text-lg font-semibold text-slate-800">Il semblerait qu'il n'y ait aucune transaction !</h3>
     <p class="text-slate-500 mb-8">Veuillez reactualisez la page ou changer de filtre.</p>
