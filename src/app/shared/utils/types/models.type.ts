@@ -18,5 +18,19 @@ export interface IUser extends IBase {
   phone_number: string;
   address: string;
   profile: string;
-  roles: string;
+  role: string;
+}
+
+export enum TransactionTypeEnum {
+  Deposit = 'deposit',
+  Withdrawal = 'withdrawal',
+  Transfer = 'transfer'
+}
+
+export interface ITransaction extends IBase {
+  amount: number;
+  type: TransactionTypeEnum;
+  from: ICashbox;
+  to: ICashbox;
+  by: IUser;
 }
