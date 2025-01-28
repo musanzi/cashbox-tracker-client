@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-10 fixed top-0 pt-24 left-0 px-16 bg-gray-100/60 min-h-screen">
+  <h2 class="mb-4 font-medium text-primary-800">Menu</h2>
+  <div class="flex flex-col gap-3">
+    @for (link of adminLinks; track $index) {
+      <a
+        [routerLink]="link.path"
+        class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-primary-900/20 hover:text-primary-900 transition-colors duration-300"
+        [routerLinkActiveOptions]="{ exact: link.exactUrl }"
+        routerLinkActive="bg-primary-900/20 text-primary-900 shadow-sm">
+        <mat-icon [svgIcon]="link.icon" class="icon-size-4" />
+        <p class="font-normal">{{ link.name }}</p>
+      </a>
+    }
+  </div>
+</div>

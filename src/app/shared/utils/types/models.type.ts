@@ -5,6 +5,12 @@ interface IBase {
   deleted_at: Date;
 }
 
+export interface ICashbox extends IBase {
+  name: string;
+  balance: number;
+  user: IUser;
+}
+
 export interface IUser extends IBase {
   email: string;
   name: string;
