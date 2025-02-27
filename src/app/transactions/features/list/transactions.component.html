@@ -1,0 +1,27 @@
+<section>
+  @let transactions = transactions$ | async;
+  @if (transactions?.data?.[0]) {
+    <h3 class="text-lg font-semibold text-slate-800">Les transactions</h3>
+    <p class="text-slate-500 mb-8">
+      Voici une liste des transactions enregistrés dans le système, vous pouvez les modifier ou les supprimer
+    </p>
+    <button
+      class="flex items-center px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 gap-2 bg-primary-600 mb-6"
+      (click)="openAddModal()">
+      <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
+      ajouter une transaction
+    </button>
+    <app-table [columns]="columns" [data]="transactions.data[0]" [actions]="actions" />
+  }
+
+  @if (transactions?.isLoading) {
+    <app-table-skeleton [columns]="columns?.length" [rows]="30" />
+  }
+  @if (transactions?.error && !transactions?.isLoading) {
+    <h3 class="text-lg font-semibold text-slate-800">Une erreur est survenue, veuillez réessayer plus tard.</h3>
+  }
+
+  @if (transactions?.data?.[1] === 0 && !transactions?.isLoading) {
+    <h3 class="text-lg font-semibold text-slate-800">Aucune transaction !</h3>
+  }
+</section>

@@ -1,6 +1,6 @@
 <div>
-  @let cashiers = cashiers$ | async;
   @let add = add$ | async;
+  @let cashboxes = cashboxes$ | async;
   @if (add?.error) {
     <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
       {{ add.error }}
@@ -11,25 +11,36 @@
   }
   <form class="mt-6" (ngSubmit)="onAdd()" [formGroup]="addForm">
     <mat-form-field class="w-full">
-      <mat-label>Nom</mat-label>
-      <input id="name" type="email" matInput [formControlName]="'name'" />
-    </mat-form-field>
-
-    <mat-form-field class="w-full">
       <mat-label>Montant</mat-label>
-      <input id="balance" type="number" matInput [formControlName]="'balance'" />
+      <input id="amount" type="number" matInput [formControlName]="'amount'" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Libellé</mat-label>
+      <textarea id="label" type="text" matInput [formControlName]="'label'"></textarea>
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>Caissier</mat-label>
-      <mat-select formControlName="cashier">
-        @for (cashier of cashiers?.data; track $index) {
-          <mat-option [value]="cashier.id">
-            {{ cashier.name }}
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="category">
+        @for (category of transactionCategories; track $index) {
+          <mat-option [value]="category">
+            {{ category }}
           </mat-option>
         }
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Caisse</mat-label>
+      <mat-select formControlName="to">
+        @for (cashbox of cashboxes?.data; track $index) {
+          <mat-option [value]="cashbox.id">
+            {{ cashbox.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <div class="flex items-center gap-3 justify-self-end">
       <button
         type="button"

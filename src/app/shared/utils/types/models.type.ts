@@ -1,3 +1,22 @@
+export enum ETransactionCategory {
+  EXTERNAL_DEPOSIT = 'Dépôt Externe',
+  SALES_REVENUE = 'Revenus des Ventes',
+  LOAN = 'Emprunt Reçu',
+  INVESTMENT = 'Investissement',
+  GRANT = 'Subvention',
+  BUYING = 'Achat',
+  PAYING_FEES = 'Paiement de Frais',
+  SALARY = 'Paiement des Salaires',
+  RENT = 'Paiement du Loyer',
+  UTILITIES = 'Factures (Électricité, Eau, Internet)',
+  TRANSPORT = 'Transport',
+  TAXES = 'Impôts',
+  MAINTENANCE = 'Entretien et Réparations',
+  DEBT_REPAYMENT = 'Remboursement de Dette',
+  DONATION = 'Don'
+}
+export const getEnumValues = <T extends object>(enumObj: T): string[] => Object.values(enumObj);
+
 interface IBase {
   id: string;
   created_at: Date;
@@ -21,16 +40,10 @@ export interface IUser extends IBase {
   role: string;
 }
 
-export enum TransactionTypeEnum {
-  Deposit = 'deposit',
-  Withdrawal = 'withdrawal',
-  Transfer = 'transfer'
-}
-
 export interface ITransaction extends IBase {
   amount: number;
-  type: TransactionTypeEnum;
-  from: ICashbox;
-  to: ICashbox;
+  category: ETransactionCategory;
+  label: string;
+  cashbox: ICashbox;
   by: IUser;
 }
