@@ -1,0 +1,22 @@
+<section>
+  @let cashboxes = cashboxes$ | async;
+  @if (cashboxes?.data) {
+    <h3 class="text-lg font-semibold text-slate-800">Les caisses</h3>
+    <p class="text-slate-500 mb-8">
+      Voici une liste des caisses enregistrés dans le système, vous pouvez les modifier ou les supprimer
+    </p>
+    <button
+      class="flex items-center px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 gap-2 bg-primary-600 mb-6"
+      (click)="openAddModal()">
+      <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
+      ajouter une caisse
+    </button>
+    <app-table [columns]="columns" [data]="cashboxes.data" [actions]="actions" />
+  }
+  @if (cashboxes?.isLoading) {
+    <app-table-skeleton [columns]="columns?.length" [rows]="10" />
+  }
+  @if (cashboxes?.error && !cashboxes?.isLoading) {
+    <h3 class="text-lg font-semibold text-slate-800">Aucune caisse</h3>
+  }
+</section>

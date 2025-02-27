@@ -1,0 +1,24 @@
+<table class="text-left table-auto min-w-max text-gray-700 bg-white shadow-md rounded-lg w-full">
+  @let cols = generateArray(columns());
+  @let r = generateArray(rows());
+  <thead>
+    <tr>
+      @for (col of cols; track $index) {
+        <th class="p-4 border-b animate-pulse border-slate-300 bg-slate-50">
+          <div class="bg-gray-200 animate-pulse rounded-lg h-4 w-32"></div>
+        </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of r; track $index) {
+      <tr>
+        @for (col of cols; track $index) {
+          <td class="p-4 border-b border-slate-200">
+            <div class="bg-gray-200 animate-pulse rounded-lg h-3 w-32"></div>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

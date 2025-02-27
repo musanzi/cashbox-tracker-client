@@ -1,0 +1,38 @@
+<table class="text-left table-auto min-w-max text-gray-700 bg-white shadow-md rounded-lg w-full">
+  <thead>
+    <tr>
+      @for (col of columns(); track $index) {
+        <th class="p-4 border-b border-slate-300 bg-slate-50">
+          <p class="block text-sm font-normal leading-none text-slate-500">{{ col.label }}</p>
+        </th>
+      }
+      @if (actions()?.length) {
+        <th class="p-4 border-b border-slate-300 bg-slate-50">
+          <p class="block text-sm font-normal leading-none text-slate-500">Actions</p>
+        </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of data(); track $index) {
+      <tr class="hover:bg-slate-50">
+        @for (col of columns(); track $index) {
+          <td class="p-4 border-b border-slate-200">
+            @if (col.key === 'created_at' || col.key === 'updated_at') {
+              <p class="text-sm text-slate-800">{{ item[col.key] | date: 'longDate' }}</p>
+            } @else {
+              <p class="text-sm text-slate-800">{{ getValue(item, col.key) }}</p>
+            }
+          </td>
+        }
+        @if (actions()?.length) {
+          <td class="p-4 border-b border-slate-200 flex items-center gap-4">
+            @for (action of actions(); track $index) {
+              <mat-icon [svgIcon]="action.icon" class="icon-size-5 cursor-pointer" (click)="action.fn(item)" />
+            }
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

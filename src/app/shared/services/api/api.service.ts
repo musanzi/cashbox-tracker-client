@@ -36,4 +36,13 @@ export class APIService {
       startWith({ isLoading: true, data: null, error: null, isSuccess: false })
     );
   }
+
+  delete(url: string, onSuccess?: () => void): Observable<IAPIResponse<void>> {
+    return this.#http.delete(url).pipe(
+      map((res) => ({ isLoading: false, data: res, error: null, isSuccess: true })),
+      tap(() => onSuccess && onSuccess()),
+      catchError((err) => of({ isLoading: false, data: null, error: err.error['message'], isSuccess: false })),
+      startWith({ isLoading: true, data: null, error: null, isSuccess: false })
+    );
+  }
 }

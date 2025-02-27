@@ -1,0 +1,38 @@
+<div class="flex flex-col justify-between gap-10 fixed top-0 pt-14 left-0 px-16 bg-primary-800 min-h-screen text-white">
+  @let logout = logout$ | async;
+  <div>
+    <div class="flex items-center gap-2 ml-4 mb-10">
+      <img ngSrc="/images/logo.webp" alt="logo" class="w-6 h-7" width="64" height="68" priority />
+      <h1 class="font-bold text-lg text-yellow-400">Cashbox</h1>
+    </div>
+    <div class="flex flex-col gap-3">
+      @for (link of adminLinks; track $index) {
+        <a
+          [routerLink]="link.path"
+          class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-primary-900 transition-colors duration-300"
+          [routerLinkActiveOptions]="{ exact: link.exactUrl }"
+          routerLinkActive="bg-primary-900 shadow-sm">
+          <mat-icon [svgIcon]="link.icon" class="icon-size-4" />
+          <p class="font-normal">{{ link.name }}</p>
+        </a>
+      }
+    </div>
+  </div>
+  <div class="flex flex-col gap-7 mb-10">
+    <div class="flex flex-col md:flex-row gap-4 items-center">
+      <img
+        [src]="user() | apiIMG: 'user'"
+        class="rounded-full w-10 h-10 object-cover ring-2 ring-primary-900 ring-offset-2"
+        alt="profile picture" />
+      <p>{{ user().name }}</p>
+    </div>
+
+    <button
+      class="bg-primary-700 hover:bg-primary-700/60 text-sm transition-colors duration-300 py-2 text-white font-medium rounded-lg flex items-center disabled:bg-primary-700/80 gap-1.5 justify-center"
+      (click)="signOut()"
+      [disabled]="logout?.isLoading">
+      <mat-icon [svgIcon]="'mat_outline:logout'" class="icon-size-4" />
+      Se déconnecter
+    </button>
+  </div>
+</div>

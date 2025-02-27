@@ -60,17 +60,17 @@
     0% {
       opacity: 0;
       -webkit-transform: translate3d(0, 1rem, 0);
-      transform: translate3d(0, 1rem, 0);
+      transform: translate(0, 1rem, 0);
     }
 
     100% {
       opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
+      -webkit-transform: translate(0, 0, 0);
       transform: translate3d(0, 0, 0);
     }
   }
 
-  .animate-fadeInUp {
-    animation: fadeInUp 300ms ease-in-out;
+  .animate-fadeIn {
+    animation: fadeInUp 300ms ease-in;
   }
 }

@@ -1,6 +1,16 @@
 @defer {
+  @let user = user$ | async;
   <app-loading-bar />
-  <router-outlet />
+  @if (user) {
+    <div class="mb-20 px-8 mx-auto max-w-screen-lg md:px-0 mt-14">
+      <div class="flex flex-col md:flex-row items-start justify-start gap-10 md:gap-28">
+        <app-sidebar [user]="user" />
+        <router-outlet />
+      </div>
+    </div>
+  } @else {
+    <router-outlet />
+  }
 } @placeholder {
   <app-loader />
 }
