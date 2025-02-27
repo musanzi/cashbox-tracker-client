@@ -4,5 +4,5 @@ export interface AddTransactionDto {
   amount: number;
   category: ETransactionCategory;
   label: string;
-  to: string;
+  cashbox: string;
 }

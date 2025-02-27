@@ -34,7 +34,7 @@ export class EditTransactionComponent implements OnInit, OnDestroy {
   constructor() {
     this.editForm = this.#fb.group({
       amount: ['', Validators.required],
-      to: ['', Validators.required],
+      cashbox: ['', Validators.required],
       category: ['', Validators.required],
       label: ['', Validators.required]
     });
@@ -46,7 +46,7 @@ export class EditTransactionComponent implements OnInit, OnDestroy {
     this.#subscription = this.transaction$.subscribe(({ data }) => {
       this.editForm.patchValue({
         amount: data?.amount,
-        to: data?.cashbox?.id,
+        cashbox: data?.cashbox?.id,
         category: data?.category,
         label: data?.label
       });

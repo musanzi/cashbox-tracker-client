@@ -32,7 +32,7 @@
 
     <mat-form-field class="w-full">
       <mat-label>Caisse</mat-label>
-      <mat-select formControlName="to">
+      <mat-select formControlName="cashbox">
         @for (cashbox of cashboxes?.data; track $index) {
           <mat-option [value]="cashbox.id">
             {{ cashbox.name }}
