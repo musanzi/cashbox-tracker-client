@@ -28,7 +28,7 @@ export const adminLinks: ILink[] = [
   {
     name: 'Utilisateurs',
     path: '/users',
-    icon: 'mat_outline:format_list_bulleted',
+    icon: 'mat_outline:group',
     exactUrl: false
   }
 ];
