@@ -5,7 +5,7 @@
 
   <button class="primary-btn mb-8" (click)="openAddModal()">
     <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
-    ajouter un transfert
+    ajouter un utilisateur
   </button>
 
   <div class="mb-4 flex items-center gap-4 w-[800px]">
@@ -35,7 +35,7 @@
       </thead>
       <tbody>
         @for (
-          user of usersData | paginate: { itemsPerPage: 30, currentPage: queryParams().page, totalItems: count };
+          user of usersData | paginate: { itemsPerPage: 12, currentPage: queryParams().page, totalItems: count };
           track user.id
         ) {
           <tr>
@@ -62,7 +62,7 @@
         }
       </tbody>
     </table>
-    @if (count > 9) {
+    @if (count > 12) {
       <div class="flex justify-center mt-16">
         <pagination-controls nextLabel="" previousLabel="" [maxSize]="5" (pageChange)="onPageChange($event)" class="pg">
         </pagination-controls>
