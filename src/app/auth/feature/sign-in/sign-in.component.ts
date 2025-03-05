@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,7 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { environment } from 'environments/environment';
 import { AuthCardComponent } from '../../ui/auth-card/auth-card.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from 'app/shared/services/api/types/api-response.type';
 import { IUser } from 'app/shared/utils/types/models.type';
@@ -33,6 +33,8 @@ import { AuthService } from '../../data-access/auth.service';
 export class AuthSignInComponent {
   #formBuilder: FormBuilder = inject(FormBuilder);
   #authService = inject(AuthService);
+  #route = inject(ActivatedRoute);
+  redirectUrl = signal<string>(this.#route.snapshot.queryParams?.redirectUrl || '/');
   signInForm: FormGroup;
   signIn$: Observable<IAPIResponse<IUser>>;
 
@@ -46,7 +48,7 @@ export class AuthSignInComponent {
   onSignIn(): void {
     if (this.signInForm.invalid) return;
     this.signInForm.disable();
-    this.signIn$ = this.#authService.signIn(this.signInForm.value);
+    this.signIn$ = this.#authService.signIn(this.signInForm.value, this.redirectUrl());
     this.signInForm.enable();
   }
 
