@@ -10,19 +10,25 @@ export const adminLinks: ILink[] = [
   {
     name: 'Caisses',
     path: '/cashboxes',
-    icon: 'mat_outline:savings',
+    icon: 'mat_outline:payments',
     exactUrl: false
   },
   {
     name: 'Transactions',
     path: '/transactions',
-    icon: 'mat_outline:swap_horiz',
+    icon: 'mat_outline:account_balance_wallet',
     exactUrl: false
   },
   {
-    name: 'Utilisateurs',
-    path: '/users',
-    icon: 'mat_outline:people',
+    name: 'Transferts',
+    path: '/transfers',
+    icon: 'mat_outline:sync_alt',
     exactUrl: false
   }
+  // {
+  //   name: 'Utilisateurs',
+  //   path: '/users',
+  //   icon: 'mat_outline:people',
+  //   exactUrl: false
+  // }
 ];
