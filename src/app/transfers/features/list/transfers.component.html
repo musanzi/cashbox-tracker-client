@@ -1,32 +1,29 @@
 <section>
-  @let transactions = transactions$ | async;
+  @let transfers = transfers$ | async;
   @let cashboxes = cashboxes$ | async;
-  @let transactionsData = transactions?.data?.[0];
-  @let count = transactions?.data?.[1];
+  @let transfersData = transfers?.data?.[0];
+  @let count = transfers?.data?.[1];
   @let cashboxesData = cashboxes?.data;
 
   <button class="primary-btn mb-8" (click)="openAddModal()">
     <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
-    ajouter une transaction
+    ajouter un transfert
   </button>
 
   <div class="mb-4 flex items-center gap-4 w-[800px]">
     <mat-form-field class="w-full">
       <mat-label>Plage de temps</mat-label>
-      <mat-date-range-input id="time" [rangePicker]="picker">
-        <input id="from" matStartDate placeholder="Du" (dateChange)="onFilterChange('from', $event)" />
-        <input id="to" matEndDate placeholder="Au" (dateChange)="onFilterChange('to', $event)" />
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Du" (dateChange)="onFilterChange('from', $event)" />
+        <input matEndDate placeholder="Au" (dateChange)="onFilterChange('to', $event)" />
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="picker" />
       <mat-date-range-picker #picker />
     </mat-form-field>
     <mat-form-field class="w-full">
-      <mat-label>Caisse</mat-label>
-      <mat-select
-        id="cashbox"
-        (selectionChange)="onFilterChange('cashbox', $event)"
-        [value]="queryParams()?.cashbox || 'all'">
-        <mat-option [value]="'all'"> Tous </mat-option>
+      <mat-label>De </mat-label>
+      <mat-select (selectionChange)="onFilterChange('from_cashbox', $event)" [value]="'all'">
+        <mat-option [value]="'all'">Tous</mat-option>
         @for (cashbox of cashboxesData; track $index) {
           <mat-option [value]="cashbox.id">
             {{ cashbox.name }}
@@ -35,22 +32,19 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="w-full">
-      <mat-label>Catégorie</mat-label>
-      <mat-select
-        id="category"
-        (selectionChange)="onFilterChange('category', $event)"
-        [value]="queryParams()?.category || 'all'">
+      <mat-label>A</mat-label>
+      <mat-select (selectionChange)="onFilterChange('to_cashbox', $event)" [value]="'all'">
         <mat-option [value]="'all'">Tous</mat-option>
-        @for (category of transactionCategories(); track $index) {
-          <mat-option [value]="category">
-            {{ category }}
+        @for (cashbox of cashboxesData; track $index) {
+          <mat-option [value]="cashbox.id">
+            {{ cashbox.name }}
           </mat-option>
         }
       </mat-select>
     </mat-form-field>
   </div>
 
-  @if (transactionsData && count > 0) {
+  @if (transfersData && count > 0) {
     <table class="table-simple">
       <thead>
         <tr>
@@ -63,7 +57,7 @@
       </thead>
       <tbody>
         @for (
-          t of transactionsData | paginate: { itemsPerPage: 30, currentPage: queryParams().page, totalItems: count };
+          t of transfersData | paginate: { itemsPerPage: 30, currentPage: queryParams().page, totalItems: count };
           track t.id
         ) {
           <tr>
@@ -71,13 +65,16 @@
               <p>{{ t.amount }}</p>
             </td>
             <td>
-              <p class="w-32 line-clamp-1">{{ t.category }}</p>
+              <p class="w-32 line-clamp-1">{{ t.label }}</p>
             </td>
             <td>
-              <p>{{ t.cashbox.name }}</p>
+              <p class="w-20 line-clamp-1">{{ t.from_cashbox.name }}</p>
             </td>
             <td>
-              <p>{{ t.by.name }}</p>
+              <p class="w-20 line-clamp-1">{{ t.to_cashbox.name }}</p>
+            </td>
+            <td>
+              <p class="w-16 line-clamp-1">{{ t.by.name }}</p>
             </td>
             <td class="flex items-center gap-3">
               <mat-icon [svgIcon]="'edit'" class="icon-size-5 cursor-pointer" (click)="openEditModal(t.id)" />
@@ -94,13 +91,13 @@
       </div>
     }
   }
-  @if (transactions?.isLoading) {
-    <app-table-skeleton [columns]="columns()?.length" [rows]="30" />
+  @if (transfers?.isLoading) {
+    <app-table-skeleton [columns]="columns()?.length" [rows]="20" />
   }
-  @if (!transactions?.isSuccess && !transactions?.isLoading) {
+  @if (!transfers?.isSuccess && !transfers?.isLoading) {
     <h3 class="text-lg font-semibold text-slate-800">Une erreur est survenue, veuillez réessayer plus tard.</h3>
   }
-  @if (count === 0 && !transactions?.isLoading) {
+  @if (count === 0 && !transfers?.isLoading) {
     <h3 class="text-2xl font-semibold text-slate-800">0 transaction !</h3>
   }
 </section>

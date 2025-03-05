@@ -1,21 +1,5 @@
-export enum ETransactionCategory {
-  EXTERNAL_DEPOSIT = 'Dépôt Externe',
-  SALES_REVENUE = 'Revenus des Ventes',
-  LOAN = 'Emprunt Reçu',
-  INVESTMENT = 'Investissement',
-  GRANT = 'Subvention',
-  BUYING = 'Achat',
-  PAYING_FEES = 'Paiement de Frais',
-  SALARY = 'Paiement des Salaires',
-  RENT = 'Paiement du Loyer',
-  UTILITIES = 'Factures (Électricité, Eau, Internet)',
-  TRANSPORT = 'Transport',
-  TAXES = 'Impôts',
-  MAINTENANCE = 'Entretien et Réparations',
-  DEBT_REPAYMENT = 'Remboursement de Dette',
-  DONATION = 'Don'
-}
-export const getEnumValues = <T extends object>(enumObj: T): string[] => Object.values(enumObj);
+import { ERole } from '../enums/role.enum';
+import { ETransactionCategory } from '../enums/transaction.enum';
 
 interface IBase {
   id: string;
@@ -35,9 +19,9 @@ export interface IUser extends IBase {
   name: string;
   password: string;
   phone_number: string;
-  address: string;
-  profile: string;
-  role: string;
+  role: ERole;
+  profile?: string;
+  cashboxes: ICashbox[];
 }
 
 export interface ITransaction extends IBase {
@@ -45,5 +29,13 @@ export interface ITransaction extends IBase {
   category: ETransactionCategory;
   label: string;
   cashbox: ICashbox;
+  by: IUser;
+}
+
+export interface ITransfer extends IBase {
+  amount: number;
+  label?: string;
+  from_cashbox: ICashbox;
+  to_cashbox: ICashbox;
   by: IUser;
 }

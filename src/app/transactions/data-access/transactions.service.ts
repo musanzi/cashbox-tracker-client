@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UpdateTransactionDto } from '../utils/update-transaction.dto';
 import { AddTransactionDto } from '../utils/add-transaction.dto';
 import { QueryParams } from '../utils/query-params.type';
-import { HttpParams } from '@angular/common/http';
+import { buildQueryParams } from '../../shared/helpers/build-query-params.fn';
 
 @Injectable()
 export class TransactionsService {
@@ -19,7 +19,7 @@ export class TransactionsService {
   }
 
   getAll(queryParams: QueryParams): Observable<IAPIResponse<[ITransaction[], number]>> {
-    const params = this.buildQueryParams(queryParams);
+    const params = buildQueryParams(queryParams);
     return this.#apiService.get('transactions', params);
   }
 
@@ -46,15 +46,5 @@ export class TransactionsService {
       this.#toastService.success(`Transaction supprimé`);
     };
     return this.#apiService.delete(`transactions/${id}`, onsSuccess);
-  }
-
-  buildQueryParams(queryParams: QueryParams): HttpParams {
-    let params = new HttpParams();
-    Object.keys(queryParams).forEach((key) => {
-      const value = queryParams[key];
-      if (!value) return;
-      params = params.set(key, value);
-    });
-    return params;
   }
 }

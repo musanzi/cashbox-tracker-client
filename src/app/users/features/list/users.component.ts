@@ -1,28 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { TransactionsService } from '../../data-access/transactions.service';
+import { UsersService } from '../../data-access/users.service';
 import { Observable, Subscription } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
-import { ICashbox, ITransaction } from '../../../shared/utils/types/models.type';
+import { IUser } from '../../../shared/utils/types/models.type';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
-import { AddTransactionComponent } from '../add/add-transaction.component';
-import { DeleteTransactionComponent } from '../delete/delete-transaction.component';
+import { AddUserComponent } from '../add/add-user.component';
+import { DeleteUserComponent } from '../delete/delete-user.component';
 import { TableSkeletonComponent } from '../../../shared/ui/table-skeleton/table-skeleton.component';
-import { EditTransactionComponent } from '../edit/edit-transaction.component';
+import { EditUserComponent } from '../edit/edit-user.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { QueryParams } from '../../utils/query-params.type';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { getEnumValues } from '../../../shared/helpers/enum-array.fn';
-import { ETransactionCategory } from '../../../shared/utils/enums/transaction.enum';
+import { ERole } from '../../../shared/utils/enums/role.enum';
 
 @Component({
-  selector: 'app-transactions',
-  providers: [TransactionsService],
+  selector: 'app-users',
+  providers: [UsersService],
   imports: [
     CommonModule,
     MatIconModule,
@@ -34,60 +34,55 @@ import { ETransactionCategory } from '../../../shared/utils/enums/transaction.en
     MatSelectModule,
     MatDatepickerModule
   ],
-  templateUrl: './transactions.component.html'
+  templateUrl: './users.component.html'
 })
-export class TransactionsComponent implements OnInit, OnDestroy {
-  #transactionsService = inject(TransactionsService);
+export class UsersComponent implements OnInit, OnDestroy {
+  #usersService = inject(UsersService);
   #dialog = inject(MatDialog);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
-  transactions$: Observable<IAPIResponse<[ITransaction[], number]>>;
-  cashboxes$: Observable<IAPIResponse<ICashbox[]>>;
+  users$: Observable<IAPIResponse<[IUser[], number]>>;
   subscription = new Subscription(null);
-  columns = signal(['Montant', 'Catégorie', 'Caisse', 'Par', 'Actions']);
-  transactionCategories = signal<string[]>(getEnumValues(ETransactionCategory));
+  columns = signal(['Nom', 'Rôle', 'Email', 'Télephone', 'Ajouté le', 'Actions']);
+  roles = signal<string[]>(getEnumValues(ERole));
   queryParams = signal<QueryParams>({
     page: Number(this.#route.snapshot.queryParams?.page) || null,
-    category: this.#route.snapshot.queryParams?.category || null,
-    from: this.#route.snapshot.queryParams?.from || null,
-    to: this.#route.snapshot.queryParams?.to || null,
-    cashbox: this.#route.snapshot.queryParams?.cashbox || null
+    role: this.#route.snapshot.queryParams?.role || null
   });
 
   ngOnInit(): void {
-    this.cashboxes$ = this.#transactionsService.getCashboxes();
-    this.loadTransactions();
+    this.loadUsers();
   }
 
   openEditModal(id: string): void {
     this.subscription = this.#dialog
-      .open(EditTransactionComponent, { data: id })
+      .open(EditUserComponent, { data: id })
       .afterClosed()
       .subscribe(() => {
-        this.loadTransactions();
+        this.loadUsers();
       });
   }
 
   openAddModal(): void {
     this.subscription = this.#dialog
-      .open(AddTransactionComponent)
+      .open(AddUserComponent)
       .afterClosed()
       .subscribe(() => {
-        this.loadTransactions();
+        this.loadUsers();
       });
   }
 
   openDeleteModal(id: string): void {
     this.subscription = this.#dialog
-      .open(DeleteTransactionComponent, { data: { id } })
+      .open(DeleteUserComponent, { data: { id } })
       .afterClosed()
       .subscribe(() => {
-        this.loadTransactions();
+        this.loadUsers();
       });
   }
 
-  loadTransactions(): void {
-    this.transactions$ = this.#transactionsService.getAll(this.queryParams());
+  loadUsers(): void {
+    this.users$ = this.#usersService.getAll(this.queryParams());
   }
 
   onFilterChange(filter: string, event: MatSelectChange | MatDatepickerInputEvent<Date>): void {
@@ -102,14 +97,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   updateRoute(): void {
-    this.#router.navigate(['/transactions'], {
+    this.#router.navigate(['/users'], {
       queryParams: this.queryParams()
     });
   }
 
   updateRouteAndEvents(): void {
     this.updateRoute();
-    this.loadTransactions();
+    this.loadUsers();
   }
 
   ngOnDestroy(): void {

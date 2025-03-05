@@ -6,6 +6,8 @@ import { cashboxesRoutes } from './cashboxes/cashboxes.routes';
 import { overviewRoutes } from './overview/overview.routes';
 import { transactionsRoutes } from './transactions/transactions.routes';
 import { LayoutComponent } from './shared/ui/layout/layout.component';
+import { transfersRoutes } from './transfers/transfers.routes';
+import { usersRoutes } from './users/users.routes';
 
 export const appRoutes: Route[] = [
   {
@@ -35,5 +37,19 @@ export const appRoutes: Route[] = [
     data: { layout: 'auth' },
     canActivate: [authGuard],
     loadChildren: () => transactionsRoutes
+  },
+  {
+    path: 'transfers',
+    component: LayoutComponent,
+    data: { layout: 'auth' },
+    canActivate: [authGuard],
+    loadChildren: () => transfersRoutes
+  },
+  {
+    path: 'users',
+    component: LayoutComponent,
+    data: { layout: 'auth' },
+    canActivate: [authGuard],
+    loadChildren: () => usersRoutes
   }
 ];

@@ -1,37 +1,34 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { TransactionsService } from '../../data-access/transactions.service';
+import { TransfersService } from '../../data-access/transfers.service';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
-import { ICashbox, ITransaction } from '../../../shared/utils/types/models.type';
-import { getEnumValues } from '../../../shared/helpers/enum-array.fn';
-import { ETransactionCategory } from '../../../shared/utils/enums/transaction.enum';
+import { ICashbox, ITransfer } from '../../../shared/utils/types/models.type';
 
 @Component({
   imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
-  providers: [TransactionsService],
-  selector: 'app-add-transaction',
-  templateUrl: './add-transaction.component.html'
+  providers: [TransfersService],
+  selector: 'app-add-transfer',
+  templateUrl: './add-transfer.component.html'
 })
-export class AddTransactionComponent implements OnInit {
+export class AddTransferComponent implements OnInit {
   addForm: FormGroup;
-  add$: Observable<IAPIResponse<ITransaction>>;
+  add$: Observable<IAPIResponse<ITransfer>>;
   cashboxes$: Observable<IAPIResponse<ICashbox[]>>;
-  transactionCategories = signal<string[]>(getEnumValues(ETransactionCategory));
-  #dialogRef = inject(MatDialogRef<AddTransactionComponent>);
-  #transactionsService = inject(TransactionsService);
+  #dialogRef = inject(MatDialogRef<AddTransferComponent>);
+  #transactionsService = inject(TransfersService);
   #fb = inject(FormBuilder);
 
   constructor() {
     this.addForm = this.#fb.group({
       amount: ['', Validators.required],
       label: ['', Validators.required],
-      category: ['', Validators.required],
-      to: ['', Validators.required]
+      to: ['', Validators.required],
+      from: ['', Validators.required]
     });
   }
 

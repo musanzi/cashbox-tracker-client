@@ -1,36 +1,27 @@
 <div>
   @let add = add$ | async;
-  @let cashboxes = cashboxes$ | async;
   @if (add?.isSuccess) {
     {{ closeModal() }}
   }
   <form class="mt-6" (ngSubmit)="onAdd()" [formGroup]="addForm">
     <mat-form-field class="w-full">
-      <mat-label>Montant</mat-label>
-      <input id="amount" type="number" matInput [formControlName]="'amount'" />
+      <mat-label>Nom</mat-label>
+      <input id="name" type="number" matInput [formControlName]="'name'" />
     </mat-form-field>
     <mat-form-field class="w-full">
-      <mat-label>Libellé</mat-label>
-      <textarea id="label" type="text" matInput [formControlName]="'label'"></textarea>
+      <mat-label>E-mail</mat-label>
+      <input id="email" type="number" matInput [formControlName]="'email'" />
     </mat-form-field>
-
     <mat-form-field class="w-full">
-      <mat-label>Categorie</mat-label>
-      <mat-select id="category" formControlName="category">
-        @for (category of transactionCategories(); track $index) {
-          <mat-option [value]="category">
-            {{ category }}
-          </mat-option>
-        }
-      </mat-select>
+      <mat-label>Télephone</mat-label>
+      <input id="phone_number" type="number" matInput [formControlName]="'phone_number'" />
     </mat-form-field>
-
     <mat-form-field class="w-full">
-      <mat-label>Caisse</mat-label>
-      <mat-select id="to" formControlName="to">
-        @for (cashbox of cashboxes?.data; track $index) {
-          <mat-option [value]="cashbox.id">
-            {{ cashbox.name }}
+      <mat-label>Rôle</mat-label>
+      <mat-select formControlName="role">
+        @for (role of roles(); track $index) {
+          <mat-option id="role" [value]="role">
+            {{ role }}
           </mat-option>
         }
       </mat-select>

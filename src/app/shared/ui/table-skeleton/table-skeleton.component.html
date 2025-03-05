@@ -3,9 +3,6 @@
   @let r = generateArray(rows());
   <thead>
     <tr>
-      <th class="p-4 border-b">
-        <div class="bg-gray-200 animate-pulse rounded-lg h-3 w-10"></div>
-      </th>
       @for (col of cols; track $index) {
         <th class="p-4 border-b">
           <div class="bg-gray-200 animate-pulse rounded-lg h-3 w-20"></div>
@@ -16,9 +13,6 @@
   <tbody>
     @for (item of r; track $index) {
       <tr>
-        <td class="p-4 border-b">
-          <div class="bg-gray-200 animate-pulse rounded-lg h-2 w-6"></div>
-        </td>
         @for (col of cols; track $index) {
           <td class="p-4 border-b">
             <div class="bg-gray-200 animate-pulse rounded-lg h-2 w-20"></div>

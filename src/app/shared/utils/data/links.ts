@@ -24,11 +24,11 @@ export const adminLinks: ILink[] = [
     path: '/transfers',
     icon: 'mat_outline:sync_alt',
     exactUrl: false
+  },
+  {
+    name: 'Utilisateurs',
+    path: '/users',
+    icon: 'mat_outline:format_list_bulleted',
+    exactUrl: false
   }
-  // {
-  //   name: 'Utilisateurs',
-  //   path: '/users',
-  //   icon: 'mat_outline:people',
-  //   exactUrl: false
-  // }
 ];

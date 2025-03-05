@@ -1,0 +1,50 @@
+<div>
+  @let update = update$ | async;
+  @if (update?.isSuccess) {
+    {{ closeModal() }}
+  }
+  <form class="mt-6" (ngSubmit)="onUpdate()" [formGroup]="editForm">
+    <mat-form-field class="w-full">
+      <mat-label>Nom</mat-label>
+      <input id="name" type="number" matInput [formControlName]="'name'" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>E-mail</mat-label>
+      <input id="email" type="number" matInput [formControlName]="'email'" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Télephone</mat-label>
+      <input id="phone_number" type="number" matInput [formControlName]="'phone_number'" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Rôle</mat-label>
+      <mat-select formControlName="role">
+        @for (role of roles(); track $index) {
+          <mat-option id="role" [value]="role">
+            {{ role }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center gap-3 justify-self-end">
+      <button
+        type="button"
+        class="bg-red-600 px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-red-700/80 transition-colors duration-300"
+        (click)="closeModal()">
+        Fermer
+      </button>
+      <button
+        [disabled]="editForm.invalid"
+        type="submit"
+        class="bg-primary-600 px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 disabled:bg-primary-700/40 disabled:cursor-not-allowed">
+        @if (!update?.isLoading) {
+          Modifier
+        }
+        @if (update?.isLoading) {
+          Modification...
+        }
+      </button>
+    </div>
+  </form>
+</div>

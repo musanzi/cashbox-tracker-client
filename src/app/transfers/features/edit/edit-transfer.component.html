@@ -1,10 +1,10 @@
 <div>
-  @let add = add$ | async;
   @let cashboxes = cashboxes$ | async;
-  @if (add?.isSuccess) {
+  @let update = update$ | async;
+  @if (update?.isSuccess) {
     {{ closeModal() }}
   }
-  <form class="mt-6" (ngSubmit)="onAdd()" [formGroup]="addForm">
+  <form class="mt-6" (ngSubmit)="onUpdate()" [formGroup]="editForm">
     <mat-form-field class="w-full">
       <mat-label>Montant</mat-label>
       <input id="amount" type="number" matInput [formControlName]="'amount'" />
@@ -15,18 +15,17 @@
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>Categorie</mat-label>
-      <mat-select id="category" formControlName="category">
-        @for (category of transactionCategories(); track $index) {
-          <mat-option [value]="category">
-            {{ category }}
+      <mat-label>De</mat-label>
+      <mat-select id="from" formControlName="from">
+        @for (cashbox of cashboxes?.data; track $index) {
+          <mat-option [value]="cashbox.id">
+            {{ cashbox.name }}
           </mat-option>
         }
       </mat-select>
     </mat-form-field>
-
     <mat-form-field class="w-full">
-      <mat-label>Caisse</mat-label>
+      <mat-label>A</mat-label>
       <mat-select id="to" formControlName="to">
         @for (cashbox of cashboxes?.data; track $index) {
           <mat-option [value]="cashbox.id">
@@ -44,14 +43,14 @@
         Fermer
       </button>
       <button
-        [disabled]="addForm.invalid"
+        [disabled]="editForm.invalid"
         type="submit"
         class="bg-primary-600 px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 disabled:bg-primary-700/40 disabled:cursor-not-allowed">
-        @if (!add?.isLoading) {
-          Ajouter
+        @if (!update?.isLoading) {
+          Modifier
         }
-        @if (add?.isLoading) {
-          Ajout...
+        @if (update?.isLoading) {
+          Modification...
         }
       </button>
     </div>

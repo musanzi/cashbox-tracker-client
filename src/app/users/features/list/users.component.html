@@ -1,0 +1,81 @@
+<section>
+  @let users = users$ | async;
+  @let usersData = users?.data?.[0];
+  @let count = users?.data?.[1];
+
+  <button class="primary-btn mb-8" (click)="openAddModal()">
+    <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
+    ajouter un transfert
+  </button>
+
+  <div class="mb-4 flex items-center gap-4 w-[800px]">
+    <mat-form-field class="w-2/6">
+      <mat-label>Rôle</mat-label>
+      <mat-select (selectionChange)="onFilterChange('role', $event)" [value]="'all'">
+        <mat-option [value]="'all'">Tous</mat-option>
+        @for (role of roles(); track $index) {
+          <mat-option [value]="role" class="capitalize">
+            {{ role }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (usersData && count > 0) {
+    <table class="table-simple">
+      <thead>
+        <tr>
+          @for (col of columns(); track $index) {
+            <th>
+              <p>{{ col }}</p>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (
+          user of usersData | paginate: { itemsPerPage: 30, currentPage: queryParams().page, totalItems: count };
+          track user.id
+        ) {
+          <tr>
+            <td>
+              <p>{{ user.name }}</p>
+            </td>
+            <td>
+              <p class="capitalize">{{ user.role }}</p>
+            </td>
+            <td>
+              <p class="w-32 line-clamp-1">{{ user.email }}</p>
+            </td>
+            <td>
+              <p class="w-20 line-clamp-1">{{ user.phone_number }}</p>
+            </td>
+            <td>
+              <p class="w-20 line-clamp-1">{{ user.created_at | date: 'longDate' }}</p>
+            </td>
+            <td class="flex items-center gap-3">
+              <mat-icon [svgIcon]="'edit'" class="icon-size-5 cursor-pointer" (click)="openEditModal(user.id)" />
+              <mat-icon [svgIcon]="'delete'" class="icon-size-5 cursor-pointer" (click)="openDeleteModal(user.id)" />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    @if (count > 9) {
+      <div class="flex justify-center mt-16">
+        <pagination-controls nextLabel="" previousLabel="" [maxSize]="5" (pageChange)="onPageChange($event)" class="pg">
+        </pagination-controls>
+      </div>
+    }
+  }
+  @if (users?.isLoading) {
+    <app-table-skeleton [columns]="columns()?.length" [rows]="20" />
+  }
+  @if (!users?.isSuccess && !users?.isLoading) {
+    <h3 class="text-lg font-semibold text-slate-800">Une erreur est survenue, veuillez réessayer plus tard.</h3>
+  }
+  @if (count === 0 && !users?.isLoading) {
+    <h3 class="text-2xl font-semibold text-slate-800">0 utilisateur !</h3>
+  }
+</section>

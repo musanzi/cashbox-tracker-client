@@ -24,7 +24,7 @@ export class CashboxesComponent implements OnInit, OnDestroy {
   #dialog = inject(MatDialog);
   cashboxes$: Observable<IAPIResponse<ICashbox[]>>;
   subscription = new Subscription(null);
-  columns = signal(['ID', 'Nom', 'Solde $', 'Manager', 'Actions']);
+  columns = signal(['Nom', 'Solde $', 'Manager', 'Actions']);
 
   ngOnInit(): void {
     this.loadCashboxes();
