@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { LoadingBarComponent } from '../../../loading-bar/loading-bar.component';
