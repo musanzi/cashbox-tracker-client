@@ -5,42 +5,47 @@
     ajouter une caisse
   </button>
   @if (data) {
-  <table class="table-simple">
-    <thead>
-      <tr>
-        @for (col of columns(); track $index) {
-        <th>
-          <p>{{ col }}</p>
-        </th>
+    <table class="table-simple">
+      <thead>
+        <tr>
+          @for (col of columns(); track $index) {
+            <th>
+              <p>{{ col }}</p>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of cashboxes.data; track t.id) {
+          <tr>
+            <td>
+              <p>{{ $index + 1 }}</p>
+            </td>
+            <td>
+              <p>{{ t.name }}</p>
+            </td>
+            <td>
+              <p>{{ t.balance }}</p>
+            </td>
+            <td>
+              <p>{{ t.cashier.name }}</p>
+            </td>
+            <td class="flex items-center gap-3">
+              <mat-icon [svgIcon]="'edit'" class="icon-size-5 cursor-pointer" (click)="openEditModal(t.id)" />
+              <mat-icon
+                [svgIcon]="'delete'"
+                class="icon-size-5 cursor-pointer"
+                (click)="openDeleteModal(t.id, t.name)" />
+            </td>
+          </tr>
         }
-      </tr>
-    </thead>
-    <tbody>
-      @for (t of cashboxes.data; track t.id) {
-      <tr>
-        <td>
-          <p>{{ $index + 1 }}</p>
-        </td>
-        <td>
-          <p>{{ t.name }}</p>
-        </td>
-        <td>
-          <p>{{ t.balance }}</p>
-        </td>
-        <td>
-          <p>{{ t.cashier.name }}</p>
-        </td>
-        <td class="flex items-center gap-3">
-          <mat-icon [svgIcon]="'edit'" class="icon-size-5 cursor-pointer" (click)="openEditModal(t.id)" />
-          <mat-icon [svgIcon]="'delete'" class="icon-size-5 cursor-pointer" (click)="openDeleteModal(t.id, t.name)" />
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-  } @if (cashboxes?.isLoading) {
-  <app-table-skeleton [columns]="columns()?.length" [rows]="10" />
-  } @if (!cashboxes?.isSuccess && !cashboxes?.isLoading) {
-  <h3 class="text-lg font-semibold text-slate-800">Aucune caisse</h3>
+      </tbody>
+    </table>
+  }
+  @if (cashboxes?.isLoading) {
+    <app-table-skeleton [columns]="columns()?.length" [rows]="10" />
+  }
+  @if (!cashboxes?.isSuccess && !cashboxes?.isLoading) {
+    <h3 class="text-lg font-semibold text-slate-800">Aucune caisse</h3>
   }
 </section>
