@@ -4,11 +4,6 @@
   @if (update?.isSuccess) {
     {{ closeModal() }}
   }
-  @if (update?.error) {
-    <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
-      {{ update.error }}
-    </app-alert>
-  }
   <form class="mt-6" (ngSubmit)="onUpdate()" [formGroup]="editForm">
     <mat-form-field class="w-full">
       <mat-label>Montant</mat-label>
@@ -53,12 +48,10 @@
         type="submit"
         class="bg-primary-600 px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 disabled:bg-primary-700/40 disabled:cursor-not-allowed">
         @if (!update?.isLoading) {
-          Ajouter
+          Modifier
         }
         @if (update?.isLoading) {
-          <span class="text-white">
-            <mat-progress-spinner [diameter]="15" [mode]="'indeterminate'" />
-          </span>
+          Modification...
         }
       </button>
     </div>

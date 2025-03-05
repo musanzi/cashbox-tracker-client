@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CashboxesService } from '../../data-access/cashboxes.service';
 import { Observable, Subscription } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
@@ -11,13 +11,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditCashboxComponent } from '../edit/edit-cashbox.component';
 import { AddCashboxComponent } from '../add/add-cashbox.component';
 import { DeleteCashboxComponent } from '../delete/delete-cashbox.component';
-import { TableComponent } from '../../../shared/ui/table/table.component';
 import { TableSkeletonComponent } from '../../../shared/ui/table-skeleton/table-skeleton.component';
 
 @Component({
   selector: 'app-cashboxes',
   providers: [CashboxesService],
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatInputModule, TableComponent, TableSkeletonComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatInputModule, TableSkeletonComponent],
   templateUrl: './cashboxes.component.html'
 })
 export class CashboxesComponent implements OnInit, OnDestroy {
@@ -25,22 +24,7 @@ export class CashboxesComponent implements OnInit, OnDestroy {
   #dialog = inject(MatDialog);
   cashboxes$: Observable<IAPIResponse<ICashbox[]>>;
   subscription = new Subscription(null);
-  columns = [
-    { key: 'name', label: 'Nom' },
-    { key: 'balance', label: 'Solde' },
-    { key: 'cashier.name', label: 'Manager' },
-    { key: 'created_at', label: 'Créé le' }
-  ];
-  actions = [
-    {
-      icon: 'edit',
-      fn: (cashbox: ICashbox) => this.openEditModal(cashbox.id)
-    },
-    {
-      icon: 'delete',
-      fn: (cashbox: ICashbox) => this.openDeleteModal(cashbox.id, cashbox.name)
-    }
-  ];
+  columns = signal(['ID', 'Nom', 'Solde $', 'Manager', 'Actions']);
 
   ngOnInit(): void {
     this.loadCashboxes();

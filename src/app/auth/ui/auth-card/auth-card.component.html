@@ -1,11 +1,16 @@
-<div class="relative py-20 bg-white">
-  <div class="container relative m-auto px-6 md:px-12 xl:px-48">
-    <div class="m-auto space-y-8 md:w-8/12 lg:w-5/12 xl:w-6/12 mt-10">
-      <div class="rounded-md border border-gray-100 bg-white shadow-lg shadow-gray-600/30 backdrop-blur-2xl">
-        <div class="p-8 py-10 sm:p-16">
-          <ng-content />
-        </div>
-      </div>
+<div class="grid grid-cols-1 lg:grid-cols-2">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="w-3/6">
+      <h2 class="text-3xl font-semibold font-satoshi">
+        {{ title() }}
+      </h2>
+      <ng-content />
+    </div>
+  </div>
+  <div class="hidden fixed md:block right-0 w-1/2">
+    <div
+      class="relative min-h-screen items-center justify-center overflow-hidden p-16 md:flex lg:px-28 bg-[url('/images/auth.webp')] bg-center bg-cover bg-no-repeat">
+      <div class="absolute top-0 bottom-0 left-0 right-0 bg-secondary-800/30"></div>
     </div>
   </div>
 </div>

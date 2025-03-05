@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
@@ -8,22 +8,18 @@ import { TransactionsService } from '../../data-access/transactions.service';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
 import { ETransactionCategory, getEnumValues, ICashbox, ITransaction } from '../../../shared/utils/types/models.type';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { AlertComponent } from '../../../shared/ui/alert/alert.component';
-import { Animations } from '../../../shared/utils/animations';
 
 @Component({
-  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule, MatProgressSpinner, AlertComponent],
-  animations: Animations,
+  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
   providers: [TransactionsService],
-  selector: 'app-add-cashbox',
+  selector: 'app-add-transaction',
   templateUrl: './add-transaction.component.html'
 })
 export class AddTransactionComponent implements OnInit {
   addForm: FormGroup;
   add$: Observable<IAPIResponse<ITransaction>>;
   cashboxes$: Observable<IAPIResponse<ICashbox[]>>;
-  transactionCategories = getEnumValues(ETransactionCategory);
+  transactionCategories = signal<string[]>(getEnumValues(ETransactionCategory));
   #dialogRef = inject(MatDialogRef<AddTransactionComponent>);
   #transactionsService = inject(TransactionsService);
   #fb = inject(FormBuilder);

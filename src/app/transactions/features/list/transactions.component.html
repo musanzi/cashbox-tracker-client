@@ -1,27 +1,103 @@
 <section>
   @let transactions = transactions$ | async;
-  @if (transactions?.data?.[0]) {
-    <h3 class="text-lg font-semibold text-slate-800">Les transactions</h3>
-    <p class="text-slate-500 mb-8">
-      Voici une liste des transactions enregistrés dans le système, vous pouvez les modifier ou les supprimer
-    </p>
-    <button
-      class="flex items-center px-6 py-1.5 text-white text-sm font-medium rounded-md hover:bg-primary-700/80 transition-colors duration-300 gap-2 bg-primary-600 mb-6"
-      (click)="openAddModal()">
-      <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
-      ajouter une transaction
-    </button>
-    <app-table [columns]="columns" [data]="transactions.data[0]" [actions]="actions" />
-  }
+  @let cashboxes = cashboxes$ | async;
+  @let transactionsData = transactions?.data?.[0];
+  @let count = transactions?.data?.[1];
+  @let cashboxesData = cashboxes?.data;
 
-  @if (transactions?.isLoading) {
-    <app-table-skeleton [columns]="columns?.length" [rows]="30" />
+  <button class="primary-btn mb-8" (click)="openAddModal()">
+    <mat-icon svgIcon="mat_solid:add" class="icon-size-4" />
+    ajouter une transaction
+  </button>
+
+  <div class="mb-4 flex items-center gap-4 w-[800px]">
+    <mat-form-field class="w-full">
+      <mat-label>Plage de temps</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Du" (dateChange)="onFilterChange('from', $event)" />
+        <input matEndDate placeholder="Au" (dateChange)="onFilterChange('to', $event)" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-date-range-picker #picker />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Caisse </mat-label>
+      <mat-select (selectionChange)="onFilterChange('cashbox', $event)" [value]="queryParams()?.cashbox || 'all'">
+        <mat-option [value]="'all'"> Tous </mat-option>
+        @for (cashbox of cashboxesData; track $index) {
+          <mat-option [value]="cashbox.id">
+            {{ cashbox.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Categorie {{ queryParams()?.category }} </mat-label>
+      <mat-select (selectionChange)="onFilterChange('category', $event)" [value]="queryParams()?.category || 'all'">
+        <mat-option [value]="'all'">Tous</mat-option>
+        @for (category of transactionCategories(); track $index) {
+          <mat-option [value]="category">
+            {{ category }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (transactionsData && count > 0) {
+    <table class="table-simple">
+      <thead>
+        <tr>
+          @for (col of columns(); track $index) {
+            <th>
+              <p>{{ col }}</p>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (
+          t of transactionsData | paginate: { itemsPerPage: 30, currentPage: queryParams().page, totalItems: count };
+          track t.id
+        ) {
+          <tr>
+            <td>
+              <p>{{ $index + 1 }}</p>
+            </td>
+            <td>
+              <p>{{ t.amount }}</p>
+            </td>
+            <td>
+              <p class="w-32 line-clamp-1">{{ t.category }}</p>
+            </td>
+            <td>
+              <p>{{ t.cashbox.name }}</p>
+            </td>
+            <td>
+              <p>{{ t.by.name }}</p>
+            </td>
+            <td class="flex items-center gap-3">
+              <mat-icon [svgIcon]="'edit'" class="icon-size-5 cursor-pointer" (click)="openEditModal(t.id)" />
+              <mat-icon [svgIcon]="'delete'" class="icon-size-5 cursor-pointer" (click)="openDeleteModal(t.id)" />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    @if (count > 9) {
+      <div class="flex justify-center mt-16">
+        <pagination-controls nextLabel="" previousLabel="" [maxSize]="5" (pageChange)="onPageChange($event)" class="pg">
+        </pagination-controls>
+      </div>
+    }
   }
-  @if (transactions?.error && !transactions?.isLoading) {
+  @if (transactions?.isLoading) {
+    <app-table-skeleton [columns]="columns()?.length" [rows]="30" />
+  }
+  @if (!transactions?.isSuccess && !transactions?.isLoading) {
     <h3 class="text-lg font-semibold text-slate-800">Une erreur est survenue, veuillez réessayer plus tard.</h3>
   }
-
-  @if (transactions?.data?.[1] === 0 && !transactions?.isLoading) {
-    <h3 class="text-lg font-semibold text-slate-800">Aucune transaction !</h3>
+  @if (count === 0 && !transactions?.isLoading) {
+    <h3 class="text-2xl font-semibold text-slate-800">0 transaction !</h3>
   }
 </section>

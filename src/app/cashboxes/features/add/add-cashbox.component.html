@@ -1,11 +1,6 @@
 <div>
   @let cashiers = cashiers$ | async;
   @let add = add$ | async;
-  @if (add?.error) {
-    <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
-      {{ add.error }}
-    </app-alert>
-  }
   @if (add?.isSuccess) {
     {{ closeModal() }}
   }
@@ -45,9 +40,7 @@
           Ajouter
         }
         @if (add?.isLoading) {
-          <span class="text-white">
-            <mat-progress-spinner [diameter]="15" [mode]="'indeterminate'" />
-          </span>
+          Ajout...
         }
       </button>
     </div>

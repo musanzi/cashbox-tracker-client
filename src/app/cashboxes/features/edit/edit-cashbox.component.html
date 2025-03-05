@@ -4,11 +4,6 @@
   @if (update?.isSuccess) {
     {{ closeModal() }}
   }
-  @if (update?.error) {
-    <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
-      {{ update.error }}
-    </app-alert>
-  }
   <form class="mt-6" (ngSubmit)="onUpdate()" [formGroup]="editForm">
     <mat-form-field class="w-full">
       <mat-label>Nom</mat-label>
@@ -43,9 +38,7 @@
           Modifier
         }
         @if (update?.isLoading) {
-          <span class="text-white">
-            <mat-progress-spinner [diameter]="15" [mode]="'indeterminate'" />
-          </span>
+          Modifition...
         }
       </button>
     </div>

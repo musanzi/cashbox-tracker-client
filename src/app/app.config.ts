@@ -14,6 +14,7 @@ import { authReducers } from 'app/shared/store/auth/auth.reducers';
 import { LoadingInterceptor } from 'app/shared/services/loading';
 import { provideApp } from 'app/shared/providers/app.provider';
 import { provideToastr } from 'ngx-toastr';
+import { provideNativeDateAdapter } from '@angular/material/core';
 registerLocaleData(localeFr, 'fr');
 
 export const appConfig: ApplicationConfig = {
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     provideApp(),
     provideAnimations(),
+    provideNativeDateAdapter(),
     provideClientHydration(),
     provideIcons(),
     { provide: TitleStrategy, useClass: PageTitleStrategy },

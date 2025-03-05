@@ -8,13 +8,9 @@ import { TransactionsService } from '../../data-access/transactions.service';
 import { Observable, Subscription } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
 import { ETransactionCategory, getEnumValues, ICashbox, ITransaction } from '../../../shared/utils/types/models.type';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { Animations } from '../../../shared/utils/animations';
-import { AlertComponent } from '../../../shared/ui/alert/alert.component';
 
 @Component({
-  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule, MatProgressSpinner, AlertComponent],
-  animations: Animations,
+  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
   providers: [TransactionsService],
   selector: 'app-edit-transaction',
   templateUrl: './edit-transaction.component.html'

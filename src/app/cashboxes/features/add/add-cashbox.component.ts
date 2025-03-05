@@ -8,13 +8,9 @@ import { CashboxesService } from '../../data-access/cashboxes.service';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
 import { ICashbox, IUser } from '../../../shared/utils/types/models.type';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { AlertComponent } from '../../../shared/ui/alert/alert.component';
-import { Animations } from '../../../shared/utils/animations';
 
 @Component({
-  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule, MatProgressSpinner, AlertComponent],
-  animations: Animations,
+  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
   providers: [CashboxesService],
   selector: 'app-add-cashbox',
   templateUrl: './add-cashbox.component.html'

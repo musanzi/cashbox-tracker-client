@@ -1,10 +1,5 @@
 <div>
   @let delete = delete$ | async;
-  @if (delete?.error) {
-    <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
-      {{ delete.error }}
-    </app-alert>
-  }
   @if (delete?.isSuccess) {
     {{ closeModal() }}
   }
@@ -28,9 +23,7 @@
         Supprimer
       }
       @if (delete?.isLoading) {
-        <span class="text-white">
-          <mat-progress-spinner [diameter]="15" [mode]="'indeterminate'" />
-        </span>
+        Suppresion...
       }
     </button>
   </div>

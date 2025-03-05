@@ -7,15 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { TransactionsService } from '../../data-access/transactions.service';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from '../../../shared/services/api/types/api-response.type';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { AlertComponent } from '../../../shared/ui/alert/alert.component';
-import { Animations } from '../../../shared/utils/animations';
 
 @Component({
-  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule, MatProgressSpinner, AlertComponent],
-  animations: Animations,
+  imports: [CommonModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
   providers: [TransactionsService],
-  selector: 'app-add-cashbox',
+  selector: 'app-add-transaction',
   templateUrl: './delete-transaction.component.html'
 })
 export class DeleteCashboxComponent {

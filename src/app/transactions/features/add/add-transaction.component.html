@@ -1,11 +1,6 @@
 <div>
   @let add = add$ | async;
   @let cashboxes = cashboxes$ | async;
-  @if (add?.error) {
-    <app-alert class="w-full mb-2" type="error" [showIcon]="true" [@shake]="true">
-      {{ add.error }}
-    </app-alert>
-  }
   @if (add?.isSuccess) {
     {{ closeModal() }}
   }
@@ -22,7 +17,7 @@
     <mat-form-field class="w-full">
       <mat-label>Categorie</mat-label>
       <mat-select formControlName="category">
-        @for (category of transactionCategories; track $index) {
+        @for (category of transactionCategories(); track $index) {
           <mat-option [value]="category">
             {{ category }}
           </mat-option>
@@ -56,9 +51,7 @@
           Ajouter
         }
         @if (add?.isLoading) {
-          <span class="text-white">
-            <mat-progress-spinner [diameter]="15" [mode]="'indeterminate'" />
-          </span>
+          Ajout...
         }
       </button>
     </div>

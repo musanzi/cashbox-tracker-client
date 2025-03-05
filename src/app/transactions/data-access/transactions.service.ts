@@ -6,6 +6,8 @@ import { ICashbox, ITransaction } from '../../shared/utils/types/models.type';
 import { ToastrService } from 'ngx-toastr';
 import { UpdateTransactionDto } from '../utils/update-transaction.dto';
 import { AddTransactionDto } from '../utils/add-transaction.dto';
+import { QueryParams } from '../utils/query-params.type';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class TransactionsService {
@@ -16,8 +18,9 @@ export class TransactionsService {
     return this.#apiService.get('cashboxes');
   }
 
-  getAll(): Observable<IAPIResponse<[ITransaction[], number]>> {
-    return this.#apiService.get('transactions');
+  getAll(queryParams: QueryParams): Observable<IAPIResponse<[ITransaction[], number]>> {
+    const params = this.buildQueryParams(queryParams);
+    return this.#apiService.get('transactions', params);
   }
 
   getOne(id: string): Observable<IAPIResponse<ITransaction>> {
@@ -43,5 +46,15 @@ export class TransactionsService {
       this.#toastService.success(`Transaction supprimé`);
     };
     return this.#apiService.delete(`transactions/${id}`, onsSuccess);
+  }
+
+  buildQueryParams(queryParams: QueryParams): HttpParams {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach((key) => {
+      const value = queryParams[key];
+      if (!value) return;
+      params = params.set(key, value);
+    });
+    return params;
   }
 }

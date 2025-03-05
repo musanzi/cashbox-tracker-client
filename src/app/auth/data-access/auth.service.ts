@@ -24,11 +24,20 @@ export class AuthService {
       this.#store.dispatch(authActions.signIn({ user }));
       this.#router.navigate(['/']);
     };
-    return this.#apiService.post('auth/sign-in', payload, onSuccess);
+    const onError = (error: string) => {
+      this.#toast.error(error);
+    };
+    return this.#apiService.post('auth/sign-in', payload, onSuccess, onError);
   }
 
   forgotPassword(payload: IForgotPassword): Observable<IAPIResponse<void>> {
-    return this.#apiService.post('auth/forgot-password', payload);
+    const onSuccess = () => {
+      this.#toast.success('Le lien est envoyé à votre adresse e-mail.');
+    };
+    const onError = (error: string) => {
+      this.#toast.error(error);
+    };
+    return this.#apiService.post('auth/forgot-password', payload, onSuccess, onError);
   }
 
   resetPassword(payload: IResetPassword): Observable<IAPIResponse<IUser>> {
@@ -36,7 +45,10 @@ export class AuthService {
       this.#toast.success('Réinitialisation réussie');
       this.#router.navigate(['/sign-in']);
     };
-    return this.#apiService.post('auth/reset-password', payload, onSuccess);
+    const onError = (error: string) => {
+      this.#toast.error(error);
+    };
+    return this.#apiService.post('auth/reset-password', payload, onSuccess, onError);
   }
 
   getProfile(): Observable<IAPIResponse<IUser>> {
@@ -49,6 +61,9 @@ export class AuthService {
       this.#store.dispatch(authActions.signIn({ user: null }));
       this.#router.navigate(['/sign-in']);
     };
-    return this.#apiService.post('auth/sign-out', {}, onSuccess);
+    const onError = (error: string) => {
+      this.#toast.error(error);
+    };
+    return this.#apiService.post('auth/sign-out', {}, onSuccess, onError);
   }
 }
