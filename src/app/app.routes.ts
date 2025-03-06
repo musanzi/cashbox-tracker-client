@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { auhtRoutes } from './auth/auth.routes';
-import { noAuthGuard } from './shared/guards/no-auth.guard';
+import { unauthGuard } from './shared/guards/no-auth.guard';
 import { authGuard } from './shared/guards/auth.guard';
 import { cashboxesRoutes } from './cashboxes/cashboxes.routes';
 import { overviewRoutes } from './overview/overview.routes';
@@ -21,7 +21,7 @@ export const appRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     data: { layout: 'unauth' },
-    canActivate: [noAuthGuard],
+    canActivate: [unauthGuard],
     loadChildren: () => auhtRoutes
   },
   {

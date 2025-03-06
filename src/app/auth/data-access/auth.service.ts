@@ -27,7 +27,6 @@ export class AuthService {
     const onError = (error: string) => {
       this.#toast.error(error);
     };
-    console.log(redirectUrl);
     return this.#apiService.post('auth/sign-in', payload, onSuccess, onError);
   }
 

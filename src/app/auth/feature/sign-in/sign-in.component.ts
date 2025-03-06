@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { environment } from 'environments/environment';
 import { AuthCardComponent } from '../../ui/auth-card/auth-card.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -50,9 +49,5 @@ export class AuthSignInComponent {
     this.signInForm.disable();
     this.signIn$ = this.#authService.signIn(this.signInForm.value, this.redirectUrl());
     this.signInForm.enable();
-  }
-
-  signinWithGoogle(): void {
-    window.location.replace(environment.apiUrl + 'auth/sign-in');
   }
 }
