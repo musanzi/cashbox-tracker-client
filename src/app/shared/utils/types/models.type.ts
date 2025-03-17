@@ -39,3 +39,12 @@ export interface ITransfer extends IBase {
   to_cashbox: ICashbox;
   by: IUser;
 }
+
+export interface ChartData {
+  name: string;
+  value: number;
+}
+
+export interface DashboardData {
+  chartData: ChartData[];
+}

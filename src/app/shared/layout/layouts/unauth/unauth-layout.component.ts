@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Subject } from 'rxjs';
-import { LoadingBarComponent } from '../../../loading-bar/loading-bar.component';
+import { LoadingBarComponent } from '../../../ui/loading-bar/loading-bar.component';
 
 @Component({
   selector: 'app-unauth-layout',

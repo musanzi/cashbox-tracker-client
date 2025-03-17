@@ -2,13 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { APIService } from 'app/shared/services/api/api.service';
 import { Observable } from 'rxjs';
 import { IAPIResponse } from '../../shared/services/api/types/api-response.type';
-import { ICashbox } from '../../shared/utils/types/models.type';
+import { DashboardData } from '../../shared/utils/types/models.type';
 
 @Injectable()
 export class OverviewService {
   #apiService = inject(APIService);
 
-  getCashboxes(): Observable<IAPIResponse<ICashbox[]>> {
-    return this.#apiService.get('cashboxes');
+  getDashboardData(): Observable<IAPIResponse<DashboardData>> {
+    return this.#apiService.get('dashboard');
   }
 }

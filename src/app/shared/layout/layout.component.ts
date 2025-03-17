@@ -1,8 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
-import { AppConfig } from '../../services/config/config.types';
-import { AppConfigService } from '../../services/config/config.service';
+import { AppConfig } from '../services/config/config.types';
+import { AppConfigService } from '../services/config/config.service';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { UnAuthLayoutComponent } from './layouts/unauth/unauth-layout.component';
 

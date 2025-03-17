@@ -1,11 +1,8 @@
 <div class="flex flex-col justify-between gap-10 fixed top-0 pt-14 left-0 px-14 bg-primary-800 min-h-screen text-white">
   @let logout = logout$ | async;
-  <div>
+  <div class="font-semibold">
     <div class="flex items-center gap-2 ml-4 mb-10">
-      <div class="relative w-5 h-6">
-        <img ngSrc="/images/logo.webp" alt="logo" priority fill />
-      </div>
-      <h1 class="font-bold text-lg text-white">Cashbox</h1>
+      <h1 class="font-bold text-lg text-white">MTG - MENU</h1>
     </div>
     <div class="flex flex-col gap-3">
       @for (link of adminLinks; track $index) {
@@ -15,7 +12,7 @@
           [routerLinkActiveOptions]="{ exact: link.exactUrl }"
           routerLinkActive="bg-primary-900 shadow-sm">
           <mat-icon [svgIcon]="link.icon" class="icon-size-4" />
-          <p class="font-normal">{{ link.name }}</p>
+          <p class="font-medium text-white">{{ link.name }}</p>
         </a>
       }
     </div>

@@ -5,7 +5,7 @@ import { authGuard } from './shared/guards/auth.guard';
 import { cashboxesRoutes } from './cashboxes/cashboxes.routes';
 import { overviewRoutes } from './overview/overview.routes';
 import { transactionsRoutes } from './transactions/transactions.routes';
-import { LayoutComponent } from './shared/ui/layout/layout.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 import { transfersRoutes } from './transfers/transfers.routes';
 import { usersRoutes } from './users/users.routes';
 
